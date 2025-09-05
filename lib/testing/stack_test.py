@@ -43,19 +43,35 @@ class TestStack:
         assert(stk.size() == 1)
         assert(stk.pop() == 1)
 
-
     def test_full(self):
-        '''Test Stack full() method'''
+        '''Test Stack full() method - allow overflow now'''
         stk = Stack([1], 1)
 
+        # Initially full because limit = 1 and 1 item present
         assert(stk.full())
         assert(stk.size() == 1)
+
+        # Pop item, now empty
         assert(stk.pop() == 1)
+
+        # Push 1 item back
         stk.push(1)
+
+        # Push another item beyond limit - allowed now
         stk.push(2)
+
+        # Size should now be 2 (over limit)
+        assert(stk.size() == 2)
+
+        # full() should still return True because at least limit reached
         assert(stk.full())
-        assert(stk.size() == 1)
+
+        # Pop items to check correct order
+        assert(stk.pop() == 2)
         assert(stk.pop() == 1)
+
+        # Now stack is empty again
+        assert(stk.isEmpty())
 
     def test_search(self):
         '''Test Stack search() method. How far is the element in the stack? '''
